@@ -20,7 +20,7 @@ Problem:
         - No gaps are allowed in between blocks
 
     Implicit Rules:
-        - each layer has exactly the layer number squared blocks in it, 
+        - each layer has exactly the layer number squared blocks in it,
         counting from the top layer down
         - ex: layer 1 -> 1, layer 2 -> 4, layer 3 -> 9, ...
 

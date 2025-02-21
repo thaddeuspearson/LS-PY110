@@ -43,10 +43,12 @@ Data Structure:
 
 Algorithm:
     create a blocks_used variable, start it at 0
+    create a curr_layer variable and start it at 1
     create a curr_layer_req variable, start it at 1
     while compare curr_layer_req + blocks_used <= input_int:
         add curr_layer_req to blocks_used
-        increment curr_layer_req by 1 and square the result
+        increment curr_layer by 1
+        square curr_layer_req
     return input_int - blocks_used
 
 Code:
@@ -56,7 +58,7 @@ Code:
 def calculate_leftover_blocks(num_blocks):
     blocks_used = 0
     curr_layer = 1
-    curr_layer_req = curr_layer ** 2
+    curr_layer_req = 1
 
     while curr_layer_req + blocks_used <= num_blocks:
         blocks_used += curr_layer_req

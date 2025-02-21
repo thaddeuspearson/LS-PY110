@@ -26,7 +26,7 @@ Problem:
         - account for case? no
 
 Example/Test Cases:
-    ['aa', 'baa', 'ccaa', 'dddaa'] 
+    ['aa', 'baa', 'ccaa', 'dddaa']
     -> ['dddaa', 'ccaa', 'aa', 'baa']
 
     ['can can', 'toucan', 'batman', 'salt pan']

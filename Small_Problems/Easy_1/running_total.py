@@ -8,12 +8,12 @@ import sys
 
 def running_total(input_list):
     """Creates a new list where each of the elements is the running total
-    from all the precedding intergers in the input list
+    from all the preceding intergers in the input list.
 
     :param input_list (list<int>): the input list of integers
-    :returns return_list (list<int>): the runing totals of each element from
-    the input list"""
-
+    :returns return_list (list<int>): the running totals of each element from
+    the input list
+    """
     total = 0
     return_list = []
 
@@ -27,10 +27,10 @@ def running_total(input_list):
 # pylint: disable=pointless-string-statement
 """CODE EXPLAINATION
 running_total is defined on line 9 and has 1 parameter input_list. 2 local
-variables are created on lines 10 and 11, total (instantiated to 0) and 
+variables are created on lines 10 and 11: total (instantiated to 0) and
 return_list (instantiated to an empty list literal).
 
-the for loop on line 1e3 loops through each number the input list, and with
+The for loop on line 13 loops through each number the input list, and with
 each iteration, increments the total local variable by the current value of
 num on line 14, and appends the current value of total to return_list.
 

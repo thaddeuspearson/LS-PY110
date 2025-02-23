@@ -20,6 +20,7 @@ def word_sizes(words=None):
     word_lengths_dict = {}
 
     for word in words.split():
+        word = "".join([c for c in word if c.isalnum()])
         word_len = len(word)
         word_lengths_dict.setdefault(word_len, 0)
         word_lengths_dict[word_len] += 1
@@ -39,10 +40,10 @@ on line 20, a local variable word_lengths_dict is instantiated to an empty
 dict literal.
 
 The loop on line 22 iterates through each individual word in words. Within
-each loop execution, word_len is assigned to the value of the length of the
-current word, which is then checked or set as a key in word_length_dict with
-the setdefault method, and the value at that respective key is incremented by
-1 on line 25.
+each loop execution, word is striped of all non alphanumeric characters,
+word_len is assigned to the value of the length of the current word, which is
+then checked or set as a key in word_length_dict with the setdefault method,
+and the value at that respective key is incremented by 1 on line 26.
 
 word_lengths_dict is returned on line 27.
 """
@@ -54,16 +55,16 @@ if __name__ == "__main__":
     if args and args[0] == "test":
         # pylint: disable=invalid-name
         string = 'Four score and seven.'
-        assert word_sizes(string) == {4: 1, 5: 1, 3: 1, 6: 1}
+        assert word_sizes(string) == {4: 1, 5: 2, 3: 1}
 
         string = 'Hey diddle diddle, the cat and the fiddle!'
-        assert word_sizes(string) == {3: 5, 6: 1, 7: 2}
+        assert word_sizes(string) == {3: 5, 6: 3}
 
-        string = 'Humpty Dumpty sat on a wall'
-        assert word_sizes(string) == {6: 2, 3: 1, 2: 1, 1: 1, 4: 1}
+        string = 'Humpty Dumpty sat on a w@ll'
+        assert word_sizes(string) == {6: 2, 3: 2, 2: 1, 1: 1}
 
         string = "What's up doc?"
-        assert word_sizes(string) == {6: 1, 2: 1, 4: 1}
+        assert word_sizes(string) == {5: 1, 2: 1, 3: 1}
 
         assert not word_sizes('')
     else:

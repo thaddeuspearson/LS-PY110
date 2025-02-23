@@ -20,7 +20,7 @@ def integer_to_string(integer):
     :returns (str): the string representation of integer
     """
     if integer is None:
-        integer = int(input("Please enter a signed integer: "))
+        integer = int(input("Please enter an integer: "))
 
     int_str = ''
 

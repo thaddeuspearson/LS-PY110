@@ -9,21 +9,18 @@ seconds in a minute.
 import sys
 
 
-DEGREE = "\u00B0"
-
-
-def dms(angle=None):
+def dms(degree=None):
     """Returns the degrees, minutes, and seconds of the given angle.
 
-    :param angle (float): the angle
+    :param degree (float): the degree of the angle
     :returns (str): formatted string giving degree, minutes, and seconds
     """
-    if angle is None:
-        angle = input("Enter a float representing the degree of an angle: ")
-
-    minute = (angle - int(angle)) * 60
+    if degree is None:
+        degree = input("Enter a float representing the degree of an angle: ")
+    degree %= 360
+    minute = (degree - int(degree)) * 60
     second = (minute - int(minute)) * 60
-    return f"{int(angle)}{DEGREE}{int(minute):02}'{int(second):02}\""
+    return f"{int(degree)}'\u00B0'{int(minute):02}'{int(second):02}\""
 
 
 # pylint: disable=pointless-string-statement
@@ -51,5 +48,9 @@ if __name__ == "__main__":
         assert dms(93.034773) == "93°02'05\""
         assert dms(0) == "0°00'00\""
         assert dms(360) == "360°00'00\"" or dms(360) == "0°00'00\""
+        assert dms(-1) == "359°00'00\""
+        assert dms(400) == "40°00'00\""
+        assert dms(-40) == "320°00'00\""
+        assert dms(-420) == "300°00'00\""
     else:
         print(dms())

@@ -35,6 +35,5 @@ if __name__ == "__main__":
         list1 = [1, 2, 3]
         list2 = ['a', 'b', 'c']
         expected = [1, "a", 2, "b", 3, "c"]
-        assert interleave(list1, list2) == expected
-    else:
-        print()
+        actual = interleave(list1, list2)
+        assert actual == expected, actual

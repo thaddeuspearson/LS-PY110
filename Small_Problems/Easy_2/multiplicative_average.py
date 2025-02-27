@@ -9,9 +9,9 @@ import sys
 
 def multiplicative_average(int_list: list) -> str:
     """Returns the multiplicative average of the given integer list
-    
-    :paraam int_list (list<int>): the list of ints to average
-    :returns (str): the multiplicative average of the given intege list
+
+    :param int_list (list<int>): the list of ints to average
+    :returns (str): the multiplicative average of the given integer list
     """
     return f"{sum(int_list) / len(int_list):3d}"
 

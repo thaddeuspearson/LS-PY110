@@ -5,6 +5,7 @@ the list, and returns the result as a string with the value rounded to three
 decimal places.
 """
 import sys
+from math import prod
 
 
 def multiplicative_average(int_list: list) -> str:
@@ -13,7 +14,7 @@ def multiplicative_average(int_list: list) -> str:
     :param int_list (list<int>): the list of ints to average
     :returns (str): the multiplicative average of the given integer list
     """
-    return f"{sum(int_list) / len(int_list):3d}"
+    return f"{prod(int_list) / len(int_list):.3f}"
 
 
 # pylint: disable=pointless-string-statement
@@ -21,8 +22,9 @@ def multiplicative_average(int_list: list) -> str:
 multiplicative_average is defined on line 10, and has a single parameter,
 int_list which expects a list of positive intergers.
 
-This one-liner uses the sum method to add the ints in int_list together
-and divide it by the length of int_list, in order to return the average.
+This one-liner uses the prod method to multiply the ints in int_list together
+and divide it by the length of int_list, in order to return the average. Note
+that prod was imported from the math module.
 """
 
 

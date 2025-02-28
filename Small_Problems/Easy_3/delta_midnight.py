@@ -1,7 +1,13 @@
 """
-As seen in the previous exercise, the time of day can be represented as the number of minutes before or after midnight. If the number of minutes is positive, the time is after midnight. If the number of minutes is negative, the time is before midnight.
+As seen in the previous exercise, the time of day can be represented as the
+number of minutes before or after midnight. If the number of minutes is
+positive, the time is after midnight. If the number of minutes is negative,
+the time is before midnight.
 
-Write two functions that each take a time of day in 24 hour format, and return the number of minutes before and after midnight, respectively. Both functions should return a value in the range 0 through 1439.
+Write a function that takes a time of day in 24 hour format, and an additional
+parameter before_or_after and return the number of minutes before or after
+midnight, respectively. The function should return a value in the range 0
+through 1439.
 
 You may not use Python's datetime module.
 """
@@ -28,7 +34,7 @@ before_or_after, both of which are strings.
 
 On line 18, timestamp is unpacked to two lcoal variables, hour and minute,
 using the split method.
-Another local variable total_mins is calculated on line 19 by coercing hour 
+Another local variable total_mins is calculated on line 19 by coercing hour
 to it's integer representation and multiplying it by 60, and then adding the
 integer representation of minute.
 

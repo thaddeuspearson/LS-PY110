@@ -14,15 +14,17 @@ def swap_in_place(x: int | str, y: int | str) -> tuple:
     :param x (int/str): the first elem to swap
     :param y (int/str): the second elem to swap
     :returns x, y: the swapped elems"""
-    x_is_str = isinstance(x, str)
-    y_is_str = isinstance(y, str)
-    x = ord(x) if x_is_str else x
-    y = ord(y) if y_is_str else y
+    x_is_int = isinstance(x, int)
+    y_is_int = isinstance(y, int)
+    x = ord(str(x))
+    y = ord(str(y))
     x ^= y
     y ^= x
     x ^= y
-    x = chr(x) if x_is_str else x
-    y = chr(y) if y_is_str else y
+    x = chr(x)
+    y = chr(y)
+    x = int(x) if y_is_int else x
+    y = int(y) if x_is_int else y
     return x, y
 
 
@@ -56,16 +58,16 @@ incremented past back. With each iteration, the current elements at the front
 and back index are swapped in place with the swap_in_place helper function.
 
 swap_in_place is defined on line 11, and has 2 parameters, x and y. These
-parameters can accept ints or strings. The conditional blocks from line 17 to
-20 specifically check to see if either the arguments passed to x or y are
-strings, and set the local variables x_is_str, y_is_str to boolean True/False
-values accordingly, and changes the values of x and y to theor ord() values if
-they are strings.
+parameters can accept ints or strings. Lines 17 and 18 check to see if the
+arguments passed to x or y are integers, and set the local variables x_is_int,
+y_is_int to boolean True/False values accordingly. Lines 19 and 20 change the
+values of x and y to the ord() values of their string representations.
 
 Lines 21 through 23 use XOR to perform the swap truly in place.
 
-Lines 24 and 25 coerce x and y back to strings if they were initially strings.
-Finally the tuple containing x, y are returned on line 34.
+Lines 24 and 25 coerce x and y back their chr values. Lines 26 and 27 coerce x
+and/or y to ints based on the truthiness of x_is_int / y_is_int.
+Finally the tuple containing x, y are returned on line 28.
 
 Moving back into the execution context of reverse_list, front and back are
 incremented and decremented accordingly on lines 49 and 50, within the context

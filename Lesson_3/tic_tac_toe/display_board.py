@@ -23,6 +23,15 @@ def initialize_board() -> dict:
     return {square: " " for square in range(1, 10)}
 
 
+def set_player_marker(player_choice: str) -> str:
+    """Returns the players marker: (X or O depending on the player_choice)
+
+    :param player_choice (str): the players choice
+    :returns (str): X or O
+    """
+    return 'X' if player_choice == "1" else 'O'
+
+
 if __name__ == "__main__":
     positions = initialize_board()
     display_board(positions)

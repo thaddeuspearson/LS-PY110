@@ -20,7 +20,7 @@ def initialize_board() -> dict:
 
     :returns (dict): the board positons initialized with blanks
     """
-    return {square: " " for square in range(1, 10)}
+    return {str(square): " " for square in range(1, 10)}
 
 
 def set_player_markers(player_choice: str) -> str:
@@ -29,7 +29,16 @@ def set_player_markers(player_choice: str) -> str:
     :param player_choice (str): the players choice
     :returns (str): X or O
     """
-    return 'X', 'O' if player_choice == "1" else 'O', "X"
+    return ('X', 'O') if player_choice == "1" else ('O', 'X')
+
+
+def get_available_positions(gameboard: dict) -> list:
+    """Returns the available positions of the gameboard's current state
+
+    :param gameboard (dict): the current state of the gameboard
+    :returns (list): the available positions
+    """
+    return [slot for slot in gameboard if gameboard[slot] == " "]
 
 
 if __name__ == "__main__":

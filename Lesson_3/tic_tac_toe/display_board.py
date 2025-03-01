@@ -2,7 +2,7 @@ def display_board(slots: dict = {}) -> None:
     """Prints a tic tac toe board with current player positions.
 
     :param positions (dict): player and computer positions
-    :returns None
+    :returns: None
     """
     board = (
         f"\n"

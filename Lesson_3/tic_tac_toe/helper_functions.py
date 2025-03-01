@@ -41,7 +41,7 @@ def is_valid_choice(choice: str, valid_choices: list) -> bool:
     :valid_choices (list<int>): a list of valid choices
     :returns (bool): True / False
     """
-    return int(choice) in valid_choices
+    return choice in valid_choices
 
 
 def get_valid_user_input(message: str, valid_choices: list,

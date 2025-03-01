@@ -44,13 +44,13 @@ def is_valid_choice(choice: str, valid_choices: list) -> bool:
     return int(choice) in valid_choices
 
 
-def get_valid_user_input(message: str, validation_func: Callable,
-                         valid_choices: list) -> str:
+def get_valid_user_input(message: str, valid_choices: list,
+                         validation_func: Callable = is_valid_choice) -> str:
     """Gets user input, validated by the given validation function.
 
     :message (str): The message to prompt the user
-    :validation_func (Callable): the function to validate the user input
     :valid_choices (list): the list of valid choices for the validation func
+    :validation_func (Callable): the function to validate the user input
     :returns user_input (str): The validated user input string
     """
     prompt(message)

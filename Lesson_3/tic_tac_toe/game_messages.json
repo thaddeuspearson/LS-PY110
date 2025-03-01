@@ -1,0 +1,9 @@
+{
+    "en": {
+      "welcome": "Tic Tac Toe!",
+      "player_choice": "Which square do you choose?\n Valid choices: ",
+      "winner": "The winner is: ",
+      "another_round": "Would you like to play again?\n1) Yes  2) No ",
+      "goodbye": "Thank you. Goodbye!"
+    }
+}

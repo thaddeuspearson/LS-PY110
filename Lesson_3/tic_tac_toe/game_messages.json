@@ -7,7 +7,7 @@
       "player_wins": "Player wins the game!",
       "computer_wins": "Computer wins the game!",
       "scratch": "Out of valid moves. Scratch game.",
-      "another_round": "Would you like to play again?\n1) Yes  2) No ",
+      "play_again": "Would you like to play again?\n1) Yes  2) No ",
       "goodbye": "Thank you. Goodbye!"
     }
 }

@@ -1,5 +1,4 @@
 from json import load
-from random import choice
 from typing import Callable
 
 
@@ -59,12 +58,3 @@ def get_valid_user_input(message: str, valid_choices: list,
         prompt(f"Invalid entry. {message}")
         user_input = input()
     return user_input
-
-
-def choose_random_valid_position(available_positions: list) -> int:
-    """Return a random choice from the available positions list
-
-    :choices (list<int>): a list of available positions to choose from
-    :returns (various): a random choice from the available positions list
-    """
-    return choice(available_positions)

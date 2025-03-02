@@ -22,16 +22,16 @@ def initialize_board() -> dict:
     return {str(square): " " for square in range(1, 10)}
 
 
-def update_board(player_marker: str, choice: str, gameboard: dict) -> dict:
+def update_board(player_marker: str, choice: str, gameboard: dict) -> list:
     """Updates the gameboard with the most recent choice
 
     :param player_marker (str): marker of the player who made the choice
     :param choice (str): the square choosen
     :gameboard (dict): the current game state
-    :returns gameboard (dict): the updated gameboard
+    :returns (list): the remaining available positions
     """
     gameboard[choice] = player_marker
-    return gameboard
+    return get_available_positions(gameboard)
 
 
 def set_player_markers(player_choice: str) -> str:

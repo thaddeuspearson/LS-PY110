@@ -11,7 +11,6 @@ def display_board(slots: dict = {}) -> None:
         f" {slots.get(4, ' ')} │ {slots.get(5, ' ')} │ {slots.get(6, ' ')}"
         f"\n───┼───┼───\n"
         f" {slots.get(7, ' ')} │ {slots.get(8, ' ')} │ {slots.get(9, ' ')}\n")
-
     print(board)
 
 
@@ -21,6 +20,18 @@ def initialize_board() -> dict:
     :returns (dict): the board positons initialized with blanks
     """
     return {str(square): " " for square in range(1, 10)}
+
+
+def update_board(player_marker: str, choice: str, gameboard: dict) -> dict:
+    """Updates the gameboard with the most recent choice
+
+    :param player_marker (str): marker of the player who made the choice
+    :param choice (str): the square choosen
+    :gameboard (dict): the current game state
+    :returns gameboard (dict): the updated gameboard
+    """
+    gameboard[choice] = player_marker
+    return gameboard
 
 
 def set_player_markers(player_choice: str) -> str:

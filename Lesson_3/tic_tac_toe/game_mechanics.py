@@ -91,25 +91,46 @@ def get_valid_positions(gameboard: dict) -> list:
             if gameboard[square] == SQUARE_PLACEHOLDER]
 
 
-def get_squares_at_risk(computer_marker: str, gameboard: dict) -> list:
+def get_strategic_squares(marker: str, gameboard: dict) -> list:
     """Gets any squares at risk of being completed by player.
 
-    :param computer_marker (str): the marker for the current player
+    :param marker (str): the marker for the strategy ('X' | 'O')
     :param gameboard (dict): the current state of the gameboard
-    :returns squares_at_risk (list<str>): the squares at risk
+    :returns strategic_squares (list<str>): the strategic squares available
     """
     current_lines = get_current_gameboard_lines(gameboard)
-    opponent_marker = "X" if computer_marker == "O" else "O"
-    squares_at_risk = []
+    strategic_squares = []
 
     for line, square in zip(current_lines, WIN_LINES):
-        if line.count(opponent_marker) == 2 and SQUARE_PLACEHOLDER in line:
-            squares_at_risk.append(square[line.index(SQUARE_PLACEHOLDER)])
-    return squares_at_risk
+        if line.count(marker) == 2 and SQUARE_PLACEHOLDER in line:
+            strategic_squares.append(square[line.index(SQUARE_PLACEHOLDER)])
+    return strategic_squares
+
+
+def get_computer_choice(marker: str, gameboard: dict, 
+                        valid_positions: list) -> str:
+    """Gets the computer choice based on defense, then offense, then a random
+    choice.
+
+    :param marker (str): the marker for the current player
+    :param gameboard (dict): the current state of the gameboard
+    :param valid_positions (list): the list of current valid positions
+    """
+    opponent_marker = "X" if marker == "O" else "O"
+    squares_at_risk = get_strategic_squares(opponent_marker, gameboard)
+    squares_of_opportunity = get_strategic_squares(marker, gameboard)
+
+    if squares_at_risk:
+        choice = choose_random_valid_position(squares_at_risk)
+    elif squares_of_opportunity:
+        choice = choose_random_valid_position(squares_of_opportunity)
+    else:
+        choice = choose_random_valid_position(valid_positions)
+    return choice
 
 
 def claim_square(player: str, marker: str, message: str,
-                 gameboard: dict, valid_positions: list):
+                 gameboard: dict, valid_positions: list) -> str:
     """Claims a square for the given player.
 
     :param player (str): the player for the current turn
@@ -124,11 +145,7 @@ def claim_square(player: str, marker: str, message: str,
         case "computer":
             prompt(message)
             input()
-            squares_at_risk = get_squares_at_risk(marker, gameboard)
-            if squares_at_risk:
-                choice = choose_random_valid_position(squares_at_risk)
-            else:
-                choice = choose_random_valid_position(valid_positions)
+            choice = get_computer_choice(marker, gameboard, valid_positions)
     return choice
 
 

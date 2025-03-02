@@ -6,11 +6,11 @@ def display_board(slots: dict = {}) -> None:
     """
     board = (
         f"\n"
-        f" {slots.get(1, ' ')} │ {slots.get(2, ' ')} │ {slots.get(3, ' ')}"
+        f" {slots.get('1')} │ {slots.get('2')} │ {slots.get('3')}"
         f"\n───┼───┼───\n"
-        f" {slots.get(4, ' ')} │ {slots.get(5, ' ')} │ {slots.get(6, ' ')}"
+        f" {slots.get('4')} │ {slots.get('5')} │ {slots.get('6')}"
         f"\n───┼───┼───\n"
-        f" {slots.get(7, ' ')} │ {slots.get(8, ' ')} │ {slots.get(9, ' ')}\n")
+        f" {slots.get('7')} │ {slots.get('8')} │ {slots.get('9')}\n")
     print(board)
 
 

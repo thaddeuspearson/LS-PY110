@@ -4,7 +4,9 @@
       "order_of_play": "Who goes first?\n 1) Player 2) Computer ",
       "player_choice": "Which square do you choose?\n Valid choices: ",
       "computer_choice": "Press enter to see what the Computer will choose.\n Valid Choices: ",
-      "winner": "The winner is: ",
+      "player_wins": "Player wins the game!",
+      "computer_wins": "Computer wins the game!",
+      "scratch": "Out of valid moves. Scratch game.",
       "another_round": "Would you like to play again?\n1) Yes  2) No ",
       "goodbye": "Thank you. Goodbye!"
     }

@@ -41,20 +41,20 @@ def initialize_gameboard() -> dict:
 
 
 def process_gameboard(marker: str = None, gameboard: dict = None,
-                      player_choice: str = None) -> list:
+                      square: str = None) -> list:
     """Processes the gameboard with the most recent choice. Initializes the
     gameboard if called without an argument for gameboard.
 
     :param marker (str): marker of the player who made the choice
     :gameboard (dict): the current game state
-    :param choice (str): the square choosen
+    :param square (str): the square choosen
     :returns (list): the remaining available positions
     """
     system("clear")
     if not gameboard:
         gameboard = initialize_gameboard()
-    if player_choice:
-        gameboard[choice] = marker
+    if square:
+        gameboard[square] = marker
     display_gameboard(gameboard)
     valid_positions = get_valid_positions(gameboard)
     return gameboard, valid_positions
@@ -148,15 +148,15 @@ def claim_square(player: str, marker: str, message: str,
     :param message (str): the message to prompt or display
     :param gameboard (dict): the current state of the gameboard
     :param valid_positions (list): the list of current valid positions
-    :returns claimed (str): the number of the square claimed"""
+    :returns square (str): the number of the square claimed"""
     match player:
         case "player":
-            claimed = get_valid_user_input(message, valid_positions)
+            square = get_valid_user_input(message, valid_positions)
         case "computer":
             prompt(message)
             input()
-            claimed = get_computer_choice(marker, gameboard, valid_positions)
-    return claimed
+            square = get_computer_choice(marker, gameboard, valid_positions)
+    return square
 
 
 def process_turn(player: str, marker: str, message: str,

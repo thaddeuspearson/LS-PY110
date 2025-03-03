@@ -21,11 +21,16 @@ def initialize_game(messages):
     return player_char, computer_char, next_player, gameboard, valid_positions
 
 
-def player_turn(player_char, gameboard, valid_positions, messages):
-    """Handle the player's turn."""
-    message = f"{messages['player_choice']} {', '.join(valid_positions)}"
-    return (process_turn("player", player_char, message,
-                         gameboard, valid_positions))
+def handle_turn_message(player, messages, valid_positions):
+    """Handle the player's turn message."""
+    match player:
+        case "player":
+            message = (f"{messages['player_choice']} "
+                       f"{', '.join(valid_positions)}")
+        case "computer":
+            message = (f"{messages['computer_choice']} "
+                       f"{', '.join(valid_positions)}")
+    return message
 
 
 def computer_turn(computer_char, gameboard, valid_positions, messages):
@@ -35,14 +40,14 @@ def computer_turn(computer_char, gameboard, valid_positions, messages):
                          gameboard, valid_positions))
 
 
-def handle_game_over(winner, player, messages):
+def handle_game_over(winner, player_char, messages):
     """Handle the end of the game and announce the winner."""
-    if winner == player:
+    if winner == player_char:
         prompt(messages["player_wins"])
-    elif winner == "computer":
-        prompt(messages["computer_wins"])
-    else:
+    elif winner == "scratch":
         prompt(messages["scratch"])
+    else:
+        prompt(messages["computer_wins"])
 
 
 def play_again(messages):
@@ -64,12 +69,18 @@ def main():
 
         while True:
             if next_player == "player":
-                valid_positions = player_turn(player_char, gameboard,
-                                              valid_positions, messages)
+                message = handle_turn_message(next_player, messages,
+                                              valid_positions)
+                valid_positions = process_turn("player", player_char,
+                                               message, gameboard,
+                                               valid_positions)
                 next_player = "computer"
             else:
-                valid_positions = computer_turn(computer_char, gameboard,
-                                                valid_positions, messages)
+                message = handle_turn_message(next_player, messages,
+                                              valid_positions)
+                valid_positions = process_turn("computer", computer_char,
+                                               message, gameboard,
+                                               valid_positions)
                 next_player = "player"
 
             winner = is_game_over(gameboard, valid_positions)

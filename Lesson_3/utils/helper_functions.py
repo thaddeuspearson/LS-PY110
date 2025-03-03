@@ -1,3 +1,4 @@
+"""Helper functions to be used in the Small Programs Section of LS-PY110"""
 from json import load
 from typing import Callable
 

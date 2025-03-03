@@ -107,7 +107,7 @@ def get_strategic_squares(marker: str, gameboard: dict) -> list:
     return strategic_squares
 
 
-def get_computer_choice(marker: str, gameboard: dict, 
+def get_computer_choice(marker: str, gameboard: dict,
                         valid_positions: list) -> str:
     """Gets the computer choice based on defense, then offense, then a random
     choice.
@@ -117,13 +117,15 @@ def get_computer_choice(marker: str, gameboard: dict,
     :param valid_positions (list): the list of current valid positions
     """
     opponent_marker = "X" if marker == "O" else "O"
-    squares_at_risk = get_strategic_squares(opponent_marker, gameboard)
     squares_of_opportunity = get_strategic_squares(marker, gameboard)
+    squares_at_risk = get_strategic_squares(opponent_marker, gameboard)
 
-    if squares_at_risk:
-        choice = choose_random_valid_position(squares_at_risk)
-    elif squares_of_opportunity:
+    if squares_of_opportunity:
         choice = choose_random_valid_position(squares_of_opportunity)
+    elif squares_at_risk:
+        choice = choose_random_valid_position(squares_at_risk)
+    elif "5" in valid_positions:
+        choice = "5"
     else:
         choice = choose_random_valid_position(valid_positions)
     return choice

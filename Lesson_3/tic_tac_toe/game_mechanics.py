@@ -11,6 +11,7 @@ from helper_functions import get_valid_user_input, prompt
 
 
 SQUARE_PLACEHOLDER = " "
+CENTER = "5"
 WIN_LINES = [('1', '2', '3'), ('4', '5', '6'), ('7', '8', '9'),
              ('1', '4', '7'), ('2', '5', '8'), ('3', '6', '9'),
              ('1', '5', '9'), ('3', '5', '7')]
@@ -37,7 +38,7 @@ def initialize_gameboard() -> dict:
 
     :returns (dict): the board positons initialized with blanks
     """
-    return {str(square): " " for square in range(1, 10)}
+    return {str(square): SQUARE_PLACEHOLDER for square in range(1, 10)}
 
 
 def process_gameboard(marker: str = None, gameboard: dict = None,
@@ -132,8 +133,8 @@ def get_computer_choice(marker: str, gameboard: dict,
         computer_choice = choose_random_valid_position(squares_of_opportunity)
     elif squares_at_risk:
         computer_choice = choose_random_valid_position(squares_at_risk)
-    elif "5" in valid_positions:
-        computer_choice = "5"
+    elif CENTER in valid_positions:
+        computer_choice = CENTER
     else:
         computer_choice = choose_random_valid_position(valid_positions)
     return computer_choice
@@ -184,9 +185,8 @@ def check_for_winner(gameboard: dict) -> bool:
     current_lines = get_current_gameboard_lines(gameboard)
 
     for line in current_lines:
-        line = set(line)
-        if len(line) == 1 and SQUARE_PLACEHOLDER not in line:
-            return line.pop()
+        if len(set(line)) == 1 and SQUARE_PLACEHOLDER not in line:
+            return line[0]
     return None
 
 

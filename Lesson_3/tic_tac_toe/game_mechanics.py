@@ -1,5 +1,12 @@
+"""
+Classic Tic Tac Toe game played against a computer opponent.
+"""
+# pylint: disable=import-error, wrong-import-position
 from os import system
 from random import choice
+from sys import path
+from pathlib import Path
+path.append(str(Path(__file__).resolve().parent / '../utils/'))
 from helper_functions import get_valid_user_input, prompt
 
 
@@ -9,7 +16,7 @@ WIN_LINES = [('1', '2', '3'), ('4', '5', '6'), ('7', '8', '9'),
              ('1', '5', '9'), ('3', '5', '7')]
 
 
-def display_gameboard(squares: dict = {}) -> None:
+def display_gameboard(squares: dict) -> None:
     """Prints a tic tac toe board with current player positions.
 
     :param positions (dict): player and computer positions
@@ -34,7 +41,7 @@ def initialize_gameboard() -> dict:
 
 
 def process_gameboard(marker: str = None, gameboard: dict = None,
-                      choice: str = None) -> list:
+                      player_choice: str = None) -> list:
     """Processes the gameboard with the most recent choice. Initializes the
     gameboard if called without an argument for gameboard.
 
@@ -46,7 +53,7 @@ def process_gameboard(marker: str = None, gameboard: dict = None,
     system("clear")
     if not gameboard:
         gameboard = initialize_gameboard()
-    if choice:
+    if player_choice:
         gameboard[choice] = marker
     display_gameboard(gameboard)
     valid_positions = get_valid_positions(gameboard)
@@ -115,20 +122,21 @@ def get_computer_choice(marker: str, gameboard: dict,
     :param marker (str): the marker for the current player
     :param gameboard (dict): the current state of the gameboard
     :param valid_positions (list): the list of current valid positions
+    :returns computer_choice (str): the square the computer chose
     """
     opponent_marker = "X" if marker == "O" else "O"
     squares_of_opportunity = get_strategic_squares(marker, gameboard)
     squares_at_risk = get_strategic_squares(opponent_marker, gameboard)
 
     if squares_of_opportunity:
-        choice = choose_random_valid_position(squares_of_opportunity)
+        computer_choice = choose_random_valid_position(squares_of_opportunity)
     elif squares_at_risk:
-        choice = choose_random_valid_position(squares_at_risk)
+        computer_choice = choose_random_valid_position(squares_at_risk)
     elif "5" in valid_positions:
-        choice = "5"
+        computer_choice = "5"
     else:
-        choice = choose_random_valid_position(valid_positions)
-    return choice
+        computer_choice = choose_random_valid_position(valid_positions)
+    return computer_choice
 
 
 def claim_square(player: str, marker: str, message: str,
@@ -140,15 +148,15 @@ def claim_square(player: str, marker: str, message: str,
     :param message (str): the message to prompt or display
     :param gameboard (dict): the current state of the gameboard
     :param valid_positions (list): the list of current valid positions
-    :returns choice (str): the number of the square claimed"""
+    :returns claimed (str): the number of the square claimed"""
     match player:
         case "player":
-            choice = get_valid_user_input(message, valid_positions)
+            claimed = get_valid_user_input(message, valid_positions)
         case "computer":
             prompt(message)
             input()
-            choice = get_computer_choice(marker, gameboard, valid_positions)
-    return choice
+            claimed = get_computer_choice(marker, gameboard, valid_positions)
+    return claimed
 
 
 def process_turn(player: str, marker: str, message: str,
@@ -162,8 +170,8 @@ def process_turn(player: str, marker: str, message: str,
     :param valid_positions (list): the list of current valid positions
     :returns valid_positions (list): the updated positions on the board
     """
-    choice = claim_square(player, marker, message, gameboard, valid_positions)
-    gameboard, valid_positions = process_gameboard(marker, gameboard, choice)
+    square = claim_square(player, marker, message, gameboard, valid_positions)
+    gameboard, valid_positions = process_gameboard(marker, gameboard, square)
     return valid_positions
 
 
@@ -191,7 +199,6 @@ def is_game_over(gameboard: dict, valid_positions: list) -> str | None:
     winner = check_for_winner(gameboard)
     if winner:
         return winner
-    elif not valid_positions:
+    if not valid_positions:
         return "scratch"
-    else:
-        return None
+    return None

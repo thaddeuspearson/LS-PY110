@@ -55,18 +55,17 @@ class Card:
     def get_suit(self) -> str:
         """Returns the card suit"""
         return self.suit
-    
+
     def as_int(self) -> int:
         """Returns the card rank as an integer"""
         rank = self.rank
         face_cards = ["J", "Q", "K"]
-        if rank = "A":
+        if rank == "A":
             return 11
         elif rank in face_cards:
             return 10
         else:
             return int(rank)
-        
 
 
 class Deck:

@@ -6,7 +6,7 @@ Game mechanics classes and functions for Twenty-One!
 # from pathlib import Path
 # path.append(str(Path(__file__).resolve().parent / '../utils/'))
 # from helper_functions import get_valid_user_input, prompt
-
+from classes import Hand
 
 def build_card_group_list(cards: list, group_size: int) -> list:
     """
@@ -74,3 +74,20 @@ def assemble_cards(cards: list, group_size: int) -> str:
         assembled_cards.append(assembled_group)
 
     return "\n".join(assembled_cards)
+
+
+def total(hand: Hand) -> int:
+    """Returns the total for the given Hand
+
+    :param hand (Hand): the Hand to total
+    returns hand_total (int): the total of the hand
+    """
+    card_ranks = [card.get_rank() for card in hand.cards]
+    hand_total = sum((card.as_int() for card in hand.cards))
+    num_aces = card_ranks.count("A")
+
+    while hand_total > 21 and num_aces:
+        hand_total -= 10
+        num_aces -= 1
+
+    return hand_total

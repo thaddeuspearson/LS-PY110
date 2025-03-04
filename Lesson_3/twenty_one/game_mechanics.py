@@ -6,7 +6,12 @@ Game mechanics classes and functions for Twenty-One!
 # from pathlib import Path
 # path.append(str(Path(__file__).resolve().parent / '../utils/'))
 # from helper_functions import get_valid_user_input, prompt
-from classes import Hand
+from classes import Deck, Hand
+
+
+# Constants
+STARTING_HAND_SIZE = 2
+
 
 def build_card_group_list(cards: list, group_size: int) -> list:
     """
@@ -91,3 +96,16 @@ def total(hand: Hand) -> int:
         num_aces -= 1
 
     return hand_total
+
+
+def deal(deck: Deck, hands: list) -> None:
+    """Deals all starting hands for the given deck
+
+    :param deck (Deck): the deck to deal from
+    :param hands (List<Hands>): the hands to deal to
+    """
+    deck.shuffle()
+
+    for _ in range(STARTING_HAND_SIZE):
+        for hand in hands:
+            hand.draw(1)

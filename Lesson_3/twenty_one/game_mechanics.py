@@ -109,7 +109,9 @@ def deal(deck, hands: list) -> None:
         for hand in hands:
             hand.draw(1, deck)
 
-    display_table(reversed(hands))
+    display_table(reversed(hands))  # reversed so dealer prints on top
+
+    return [total(hand) for hand in hands]
 
 
 def display_table(hands) -> None:

@@ -115,8 +115,9 @@ class Deck:
         :param deck (list): the deck of cards to draw from
         :returns card (str): the drawn card
         """
-        card = self.cards.pop()
-        return card
+        if not self.cards:
+            self.shuffle(reset=True)
+        return self.cards.pop()
 
     def discard(self, card: Card) -> None:
         """Adds the card to the discard pile"""

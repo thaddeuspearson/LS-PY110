@@ -23,7 +23,7 @@ class Card:
         """
         card_face = self._build_card_face()
         return card_face
-    
+
     def __int__(self):
         """Returns the card rank as an integer"""
         rank = self.rank
@@ -125,10 +125,10 @@ class Deck:
 
 class Hand:
     """A hand of playing cards."""
-    def __init__(self, name: str, cards: list = [], group_size: int = 7):
+    def __init__(self, name: str, cards: list = None, group_size: int = 7):
         """Initializes a hand of Twenty-One"""
         self.name = name
-        self.cards = cards
+        self.cards = [] if cards is None else cards
         self.group_size = group_size
 
     def __str__(self) -> str:

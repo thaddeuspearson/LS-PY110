@@ -112,7 +112,7 @@ def deal(deck, hands: list) -> None:
     display_table(reversed(hands))
 
 
-def display_table(hands):
+def display_table(hands) -> None:
     """Prints all hands at the table, beginning with the dealer
 
     :param hands (list): list of hands to print
@@ -121,3 +121,22 @@ def display_table(hands):
         print("\n")
         print(f"{hand.name} Hand:\n{hand}")
         print(f"Total: {total(hand)}")
+
+
+def hit(deck, hand) -> None:
+    """Draws a card from the deck and puts it into the given hand
+
+    :param deck (Deck): the deck to draw from
+    :param hand (Hand): the hand to draw into
+    :returns total int: the total of the hand after hitting
+    """
+    hand.draw(1, deck)
+    return total(hand)
+
+
+def stay(hand):
+    """Stays the hand, and returns the hand total
+
+    :param total (int): the total of the hand
+    """
+    return total(hand)

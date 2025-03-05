@@ -6,7 +6,6 @@ Game mechanics classes and functions for Twenty-One!
 # from pathlib import Path
 # path.append(str(Path(__file__).resolve().parent / '../utils/'))
 # from helper_functions import get_valid_user_input, prompt
-from classes import Deck, Hand
 
 
 # Constants
@@ -81,14 +80,14 @@ def assemble_cards(cards: list, group_size: int) -> str:
     return "\n".join(assembled_cards)
 
 
-def total(hand: Hand) -> int:
+def total(hand) -> int:
     """Returns the total for the given Hand
 
     :param hand (Hand): the Hand to total
     returns hand_total (int): the total of the hand
     """
     card_ranks = [card.get_rank() for card in hand.cards]
-    hand_total = sum((card.as_int() for card in hand.cards))
+    hand_total = sum((int(card) for card in hand.cards))
     num_aces = card_ranks.count("A")
 
     while hand_total > 21 and num_aces:
@@ -98,7 +97,7 @@ def total(hand: Hand) -> int:
     return hand_total
 
 
-def deal(deck: Deck, hands: list) -> None:
+def deal(deck, hands: list) -> None:
     """Deals all starting hands for the given deck
 
     :param deck (Deck): the deck to deal from
@@ -108,4 +107,17 @@ def deal(deck: Deck, hands: list) -> None:
 
     for _ in range(STARTING_HAND_SIZE):
         for hand in hands:
-            hand.draw(1)
+            hand.draw(1, deck)
+
+    display_table(reversed(hands))
+
+
+def display_table(hands):
+    """Prints all hands at the table, beginning with the dealer
+
+    :param hands (list): list of hands to print
+    """
+    for hand in hands:
+        print("\n")
+        print(f"{hand.name} Hand:\n{hand}")
+        print(f"Total: {total(hand)}")

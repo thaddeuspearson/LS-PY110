@@ -30,7 +30,7 @@ class Card:
         """Returns the card rank as an integer"""
         rank = self.rank
         face_cards = ["J", "Q", "K"]
-        
+
         if rank == "A":
             return 11
         elif rank in face_cards:

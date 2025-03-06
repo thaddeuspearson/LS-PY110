@@ -10,6 +10,7 @@ Game mechanics classes and functions for Twenty-One!
 
 # Constants
 STARTING_HAND_SIZE = 2
+BLACKJACK = 21
 
 
 def build_card_group_list(cards: list, group_size: int) -> list:
@@ -97,6 +98,16 @@ def total(hand) -> int:
     return hand_total
 
 
+def dealer_total(hand) -> int:
+    """Gets the dealer total, including concealed cards
+
+    :param hand (Hand): the Hand to total
+    :returns dealer_total (int): the total of the hand
+    """
+    concealed_total = sum(card for card in hand.cards if card.concealed)
+    return total(hand) + concealed_total
+
+
 def deal(deck, hands: dict) -> None:
     """Deals all starting hands for the given deck
 
@@ -144,3 +155,19 @@ def stay(hand):
     :param total (int): the total of the hand
     """
     return total(hand)
+
+
+def players_with_blackjack(hands: dict) -> str:
+    """Returns a list of player(s) who were dealt a blackjack
+
+    :param hands (dict): all the hands at the table
+    :returns has_blackjack (list): player names who were dealt a blackjack
+    """
+    has_blackjack = []
+
+    for hand in hands:
+        hand_total = dealer_total(hand) if hand == "dealer" else total(hand)
+        if hand_total == BLACKJACK:
+            has_blackjack.append(hand)
+
+    return has_blackjack

@@ -171,3 +171,21 @@ def players_with_blackjack(hands: dict) -> str:
             has_blackjack.append(hand)
 
     return has_blackjack
+
+
+def score_round(hands: dict) -> str:
+    """Scores the round and returns the string of the winner
+    :param hands (dict): all the hands at the table
+    :returns winner (str): the winner of the round | "Push" if a tie
+    """
+    dealer_score = dealer_total(hands["dealer"])
+    player_score = total(hands["player"])
+
+    if dealer_score == player_score:
+        winner = "Push"
+    elif dealer_score > player_score:
+        winner = "Dealer"
+    else:
+        winner = "Player"
+
+    return winner

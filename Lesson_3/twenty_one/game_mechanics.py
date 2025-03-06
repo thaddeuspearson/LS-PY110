@@ -87,7 +87,7 @@ def total(hand) -> int:
     returns hand_total (int): the total of the hand
     """
     card_ranks = [card.get_rank() for card in hand.cards]
-    hand_total = sum((int(card) for card in hand.cards))
+    hand_total = sum((int(card) for card in hand.cards if not card.concealed))
     num_aces = card_ranks.count("A")
 
     while hand_total > 21 and num_aces:
@@ -97,21 +97,23 @@ def total(hand) -> int:
     return hand_total
 
 
-def deal(deck, hands: list) -> None:
+def deal(deck, hands: dict) -> None:
     """Deals all starting hands for the given deck
 
     :param deck (Deck): the deck to deal from
-    :param hands (List<Hands>): the hands to deal to
+    :param hands (dict<Hands>): the hands to deal to
     """
     deck.shuffle()
 
-    for _ in range(STARTING_HAND_SIZE):
+    for i in range(STARTING_HAND_SIZE):
         for hand in hands:
-            hand.draw(1, deck)
+            if hand == "dealer" and i == STARTING_HAND_SIZE-1:
+                hands[hand].draw(1, deck, concealed=True)
+            else:
+                hands[hand].draw(1, deck)
 
-    display_table(reversed(hands))  # reversed so dealer prints on top
-
-    return [total(hand) for hand in hands]
+    display_table(reversed(hands.values()))  # reversed so dealer prints on top
+    return hands
 
 
 def display_table(hands) -> None:

@@ -7,14 +7,16 @@ from game_mechanics import assemble_cards
 
 class Card:
     """A standard playing card."""
-    def __init__(self,  rank: str, suit: str) -> None:
+    def __init__(self, rank: str, suit: str, concealed: bool = False) -> None:
         """Initializes the card with its rank and suit
 
         :param rank (str): the rank of the card (2 - 10, J, Q, K, A)
         :param suit (str): the suit of the card (♠ ♥ ♣ ♦)
+        :param concealed (str): the card will be dealt face-down
         """
         self.rank = rank
         self.suit = suit
+        self.concealed = concealed
 
     def __str__(self) -> str:
         """Returns an ASCII art representation of the card
@@ -28,6 +30,7 @@ class Card:
         """Returns the card rank as an integer"""
         rank = self.rank
         face_cards = ["J", "Q", "K"]
+        
         if rank == "A":
             return 11
         elif rank in face_cards:
@@ -40,11 +43,13 @@ class Card:
 
         :returns card_face (str): an ASCII art card face
         """
+        rank = self.rank if not self.concealed else " "
+        suit = self.suit if not self.concealed else " "
         card_face = (
             f"┌─────┐\n"
-            f"│{self.rank}{" " * (5 - len(self.rank))}│\n"
-            f"│  {self.suit}  │\n"
-            f"│{" " * (5 - len(self.rank))}{self.rank}│\n"
+            f"│{rank}{" " * (5 - len(rank))}│\n"
+            f"│  {suit}  │\n"
+            f"│{" " * (5 - len(rank))}{rank}│\n"
             f"└─────┘"
         )
         return card_face
@@ -66,6 +71,14 @@ class Card:
     def get_suit(self) -> str:
         """Returns the card suit"""
         return self.suit
+
+    def reveal(self) -> None:
+        """Reveals a face-down card"""
+        self.concealed = False
+
+    def conceal(self) -> None:
+        """Conceals a face-up card"""
+        self.concealed = True
 
 
 class Deck:
@@ -108,16 +121,23 @@ class Deck:
         random.shuffle(self.cards)
         self.cards.reverse()
 
-    def draw(self) -> Card:
+    def draw(self, concealed: bool = False) -> Card:
         """Draws a card from the "top" of the deck, draws in reverse order for
         performance
 
         :param deck (list): the deck of cards to draw from
+        :param concealed (bool): draw the card face-down
         :returns card (str): the drawn card
         """
         if not self.cards:
             self.shuffle(reset=True)
-        return self.cards.pop()
+
+        card = self.cards.pop()
+
+        if concealed:
+            card.conceal()
+
+        return card
 
     def discard(self, card: Card) -> None:
         """Adds the card to the discard pile"""
@@ -126,7 +146,7 @@ class Deck:
 
 class Hand:
     """A hand of playing cards."""
-    def __init__(self, name: str, cards: list = None, group_size: int = 7):
+    def __init__(self, name: str, cards: list = None, group_size: int = 11):
         """Initializes a hand of Twenty-One"""
         self.name = name
         self.cards = [] if cards is None else cards
@@ -140,13 +160,14 @@ class Hand:
         """Sets the card group size for printing"""
         self.group_size = group_size
 
-    def draw(self, number: int, deck: Deck) -> None:
+    def draw(self, number: int, deck: Deck, concealed: bool = False) -> None:
         """Draws a card from the given deck
 
         :param number (int): the number of cards to draw
         :param deck (Deck): the deck to draw from
+        :param concealed (bool): draw the card face-down
         """
-        self.cards.extend([deck.draw() for _ in range(number)])
+        self.cards.extend([deck.draw(concealed) for _ in range(number)])
 
     def discard(self, card: Card, deck: Deck) -> None:
         """Discards the given card to the discard pile of the given deck
@@ -164,4 +185,5 @@ class Hand:
         """
         for card in self.cards:
             deck.discard(card)
+
         self.cards.clear()

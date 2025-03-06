@@ -197,7 +197,7 @@ class Hand:
         card_ranks = [card.get_rank() for card in self.cards]
         num_aces = card_ranks.count("A")
         hand_total = sum(int(card) for card in self.cards
-                         if include_concealed == card.concealed)
+                         if include_concealed or not card.concealed)
 
         while hand_total > 21 and num_aces:
             hand_total -= 10

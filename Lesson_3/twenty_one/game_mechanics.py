@@ -81,33 +81,6 @@ def assemble_cards(cards: list, group_size: int) -> str:
     return "\n".join(assembled_cards)
 
 
-def total(hand) -> int:
-    """Returns the total for the given Hand
-
-    :param hand (Hand): the Hand to total
-    returns hand_total (int): the total of the hand
-    """
-    card_ranks = [card.get_rank() for card in hand.cards]
-    hand_total = sum((int(card) for card in hand.cards if not card.concealed))
-    num_aces = card_ranks.count("A")
-
-    while hand_total > 21 and num_aces:
-        hand_total -= 10
-        num_aces -= 1
-
-    return hand_total
-
-
-def dealer_total(hand) -> int:
-    """Gets the dealer total, including concealed cards
-
-    :param hand (Hand): the Hand to total
-    :returns dealer_total (int): the total of the hand
-    """
-    concealed_total = sum(card for card in hand.cards if card.concealed)
-    return total(hand) + concealed_total
-
-
 def deal(deck, hands: dict) -> None:
     """Deals all starting hands for the given deck
 
@@ -123,7 +96,7 @@ def deal(deck, hands: dict) -> None:
             else:
                 hands[hand].draw(1, deck)
 
-    display_table(reversed(hands.values()))  # reversed so dealer prints on top
+    display_table(hands)  # reversed so dealer prints on top
     return hands
 
 
@@ -132,10 +105,10 @@ def display_table(hands) -> None:
 
     :param hands (list): list of hands to print
     """
-    for hand in hands:
+    for hand in hands.values():
         print("\n")
         print(f"{hand.name} Hand:\n{hand}")
-        print(f"Total: {total(hand)}")
+        print(f"Total: {hand.total()}")
 
 
 def hit(deck, hand) -> None:
@@ -146,7 +119,7 @@ def hit(deck, hand) -> None:
     :returns total int: the total of the hand after hitting
     """
     hand.draw(1, deck)
-    return total(hand)
+    return hand.total()
 
 
 def stay(hand):
@@ -154,23 +127,37 @@ def stay(hand):
 
     :param total (int): the total of the hand
     """
-    return total(hand)
+    return hand.total()
 
 
-def players_with_blackjack(hands: dict) -> str:
-    """Returns a list of player(s) who were dealt a blackjack
+def get_hand_total(hand) -> int:
+    """Gets the total of the given hand
 
-    :param hands (dict): all the hands at the table
-    :returns has_blackjack (list): player names who were dealt a blackjack
+    :param hand: the hand to total
+    returns hand_total (int): the total of the hand"""
+    if hand.name == "Dealer":
+        hand_total = hand.total(include_concealed=True)
+    else:
+        hand_total = hand.total()
+    return hand_total
+
+
+def has_blackjack(hand) -> bool:
+    """Returns True if the given hand was dealt a blackjack
+
+    :returns (bool): True | False
     """
-    has_blackjack = []
+    hand_total = get_hand_total(hand)
+    return hand_total == BLACKJACK
 
-    for hand in hands:
-        hand_total = dealer_total(hand) if hand == "dealer" else total(hand)
-        if hand_total == BLACKJACK:
-            has_blackjack.append(hand)
 
-    return has_blackjack
+def has_busted(hand) -> bool:
+    """Returns True if the given hand total exceeds 21
+
+    :returns (bool): True | False
+    """
+    hand_total = get_hand_total(hand)
+    return hand_total > BLACKJACK
 
 
 def score_round(hands: dict) -> str:
@@ -178,8 +165,8 @@ def score_round(hands: dict) -> str:
     :param hands (dict): all the hands at the table
     :returns winner (str): the winner of the round | "Push" if a tie
     """
-    dealer_score = dealer_total(hands["dealer"])
-    player_score = total(hands["player"])
+    dealer_score = hands["dealer"].total(include_concealed=True)
+    player_score = hands["player"].total()
 
     if dealer_score == player_score:
         winner = "Push"
@@ -188,4 +175,7 @@ def score_round(hands: dict) -> str:
     else:
         winner = "Player"
 
+    if winner != "Player":
+        (card.reveal() for card in hands["dealer"].cards)
+        display_table(hands)
     return winner

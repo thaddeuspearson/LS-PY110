@@ -187,3 +187,20 @@ class Hand:
             deck.discard(card)
 
         self.cards.clear()
+
+    def total(self, include_concealed: bool = False) -> int:
+        """Returns the total for the given Hand
+
+        :param include_concealed (bool): include the concealed cards in total
+        returns hand_total (int): the total of the hand
+        """
+        card_ranks = [card.get_rank() for card in self.cards]
+        num_aces = card_ranks.count("A")
+        hand_total = sum(int(card) for card in self.cards
+                         if include_concealed == card.concealed)
+
+        while hand_total > 21 and num_aces:
+            hand_total -= 10
+            num_aces -= 1
+
+        return hand_total

@@ -2,10 +2,9 @@
     "en": {
       "welcome": "Let's Play Twenty-One!",
       "hit_or_stay": "Would you like to hit or stay\n 1) Hit 2) Stay ",
-      "player_hand": "Player hand total is: ",
+      "player_hand": "Player hand total is:",
       "dealer_hand": "Dealer hand total is:",
-      "player_wins": "Player wins the hand!",
-      "dealer_wins": "Dealer wins the hand!",
+      "winner": "We have a winner:",
       "play_again": "Would you like to play another hand?\n1) Yes  2) No ",
       "goodbye": "Thank you. Goodbye!"
     }

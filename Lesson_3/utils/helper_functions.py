@@ -44,7 +44,7 @@ def is_valid_choice(choice: str, valid_choices: list) -> bool:
     return choice in valid_choices
 
 
-def get_valid_user_input(message: str, valid_choices: list,
+def get_valid_user_input(message: str, valid_choices: list = None,
                          validation_func: Callable = is_valid_choice) -> str:
     """Gets user input, validated by the given validation function.
 

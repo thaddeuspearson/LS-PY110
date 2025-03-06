@@ -1,7 +1,8 @@
 {
     "en": {
       "welcome": "Let's Play Twenty-One!",
-      "hit_or_stay": "Would you like to hit or stay\n 1) Hit 2) Stay ",
+      "name": "What is your name?",
+      "hit_or_stay": "Would you like to hit or stay\n 1) Hit 2) Stay? ",
       "player_hand": "Player hand total is:",
       "dealer_hand": "Dealer hand total is:",
       "winner": "We have a winner:",

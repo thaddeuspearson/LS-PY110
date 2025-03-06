@@ -6,6 +6,7 @@
       "player_hand": "Player hand total is:",
       "dealer_hand": "Dealer hand total is:",
       "winner": "We have a winner:",
+      "bust": "Bust! The round is over.",
       "play_again": "Would you like to play another hand?\n1) Yes  2) No ",
       "goodbye": "Thank you. Goodbye!"
     }

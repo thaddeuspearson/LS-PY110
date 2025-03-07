@@ -2,7 +2,7 @@
 Game mechanics classes and functions for Twenty-One!
 """
 # pylint: disable=import-error, wrong-import-position
-
+from os import system
 
 # Constants
 STARTING_HAND_SIZE = 2
@@ -101,6 +101,7 @@ def display_table(hands) -> None:
 
     :param hands (list): list of hands to print
     """
+    system("clear")
     for hand in hands.values():
         print("\n")
         print(f"{hand.name} Hand:\n{hand}")

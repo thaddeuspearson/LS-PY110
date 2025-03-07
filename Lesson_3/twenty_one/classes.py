@@ -151,6 +151,7 @@ class Hand:
         self.name = name
         self.cards = [] if cards is None else cards
         self.group_size = group_size
+        self.is_busted = False
 
     def __str__(self) -> str:
         """Assembles the cards in groups"""
@@ -187,6 +188,10 @@ class Hand:
             deck.discard(card)
 
         self.cards.clear()
+
+    def busted(self):
+        """Sets busted to True"""
+        self.is_busted = True
 
     def total(self, include_concealed: bool = False) -> int:
         """Returns the total for the given Hand

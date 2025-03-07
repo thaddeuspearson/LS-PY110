@@ -2,10 +2,6 @@
 Game mechanics classes and functions for Twenty-One!
 """
 # pylint: disable=import-error, wrong-import-position
-# from sys import path
-# from pathlib import Path
-# path.append(str(Path(__file__).resolve().parent / '../utils/'))
-# from helper_functions import get_valid_user_input, prompt
 
 
 # Constants
@@ -91,12 +87,12 @@ def deal(deck, hands: dict) -> None:
 
     for i in range(STARTING_HAND_SIZE):
         for hand in hands:
-            if hand == "dealer" and i == STARTING_HAND_SIZE-1:
+            if hand == "Dealer" and i == STARTING_HAND_SIZE-1:
                 hands[hand].draw(1, deck, concealed=True)
             else:
                 hands[hand].draw(1, deck)
 
-    display_table(hands)  # reversed so dealer prints on top
+    display_table(hands)
     return hands
 
 
@@ -108,7 +104,7 @@ def display_table(hands) -> None:
     for hand in hands.values():
         print("\n")
         print(f"{hand.name} Hand:\n{hand}")
-        print(f"Total: {hand.total()}")
+        print(f"Total: {hand.total()}\n")
 
 
 def hit(deck, hand) -> None:
@@ -160,22 +156,23 @@ def has_busted(hand) -> bool:
     return hand_total > BLACKJACK
 
 
-def score_round(hands: dict) -> str:
+def score_round(hands: dict, player_name: str) -> str:
     """Scores the round and returns the string of the winner
+
     :param hands (dict): all the hands at the table
+    :param player_name (str): the name of the player
     :returns winner (str): the winner of the round | "Push" if a tie
     """
-    dealer_score = hands["dealer"].total(include_concealed=True)
-    player_score = hands["player"].total()
+    dealer_hand = hands["Dealer"]
+    dealer_score = dealer_hand.total(include_concealed=True)
+    player_hand = hands[player_name]
+    player_score = player_hand.total()
 
     if dealer_score == player_score:
         winner = "Push"
-    elif dealer_score > player_score:
+    elif (not dealer_hand.is_busted and dealer_score > player_score
+          or player_hand.is_busted):
         winner = "Dealer"
     else:
         winner = "Player"
-
-    if winner != "Player":
-        (card.reveal() for card in hands["dealer"].cards)
-        display_table(hands)
     return winner

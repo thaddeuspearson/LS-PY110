@@ -19,7 +19,7 @@ P
             - return all sublists of the string
         Implicit Reqs:
             - an empty string returns an empty list
-        
+
 E
     expected_result = [
     "a", "ab", "abc", "abcd", "abcde",
@@ -68,8 +68,8 @@ all_substrs is returned on line 51, after the for loop has finished.
 
 User Level
 Substrings leverages the leading_substrings function to iterate through the
-indexes of a string, create a substring with slicing, and call 
-leading_substrings with every substring ending with the final character of 
+indexes of a string, create a substring with slicing, and call
+leading_substrings with every substring ending with the final character of
 the original input string. The final result is every possible substring of
 the given string returned as a list.
 """

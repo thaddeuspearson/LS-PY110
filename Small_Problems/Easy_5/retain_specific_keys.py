@@ -3,15 +3,16 @@ Given a dictionary and a list of keys, produce a new dictionary that only
 contains the key/value pairs for the specified keys.
 
 P
-    inputs:
-    outputs:
+    inputs: dict, list
+    outputs: dict
     rules:
         Explicit Reqs:
-            -
+            - accept a dict and list
+            - return a dict
+            - dict should only include keys that are in the list
         Implicit Reqs:
-            -
-        Questions:
-            -
+            - an empty dict should return an empty dict
+            - an empty key list should return an empty dict
 E
     input_dict = {
         'red': 1,

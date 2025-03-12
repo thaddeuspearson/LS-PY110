@@ -49,8 +49,8 @@ def is_prime(number: int) -> bool:
     if number == 1:
         return False
 
-    for num in range(1, (number // 2) + 1):
-        if number % num == 0 and num != 1:
+    for num in range(2, (number // 2) + 1):
+        if number % num == 0:
             return False
 
     return True
@@ -69,10 +69,8 @@ returns False if it is.
 On line 52, a for loop iterates through a range object initialized at 1, and
 ending at half of the given number inclusively. in each iteration, num is used
 in conjunction with the modulo operator to check if there is any remainder
-when dividing the original number by the current iteration of num.
-
-If there is no remainder, the num is checked to be sure it isn't 1. In the
-case that both of these statements evaluate to True, False is returned.
+when dividing the original number by the current iteration of num. If there is
+no remainder. False is returned.
 
 After the loop, on line 56, True is returned.
 

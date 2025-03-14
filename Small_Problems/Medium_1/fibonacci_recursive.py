@@ -39,8 +39,6 @@ def fibonacci(n: int) -> int:
     return 1 if n <= 2 else fibonacci(n - 1) + fibonacci(n - 2)
 
 
-
-
 # pylint: disable=pointless-string-statement
 """CODE EXPLANATION
 Implementation Level

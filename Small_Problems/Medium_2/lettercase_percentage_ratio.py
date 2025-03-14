@@ -94,7 +94,27 @@ def letter_percentages(string: str) -> dict:
 
 # pylint: disable=pointless-string-statement
 """CODE EXPLANATION
+Implementation Level
 
+The letter_percentages function is defined on line 72 with 1 parameter, string,
+which expects a string.
+
+On line 77 a counters dict is defined with 3 keys ad each of their values
+initialized to 0.
+
+On line 83,  a for loop iterates through the given string. In each iteration,
+the current character is checked to see if it is an alphabetic char with
+isalpha() on line 84, then isupper() on line 85. Each respective counter is
+incremented accordingly.
+
+On line 92, a dict comprehension is returned using the format_percentage
+helper function, which is defined on line 67, and returns the correctly
+formatted counter string using string interpolation.
+
+
+User Level:
+Letter_percentages takes a string, and returns a dictionary containing the
+percentages of lowercase, uppercase, and neither characters, as strings.
 """
 
 

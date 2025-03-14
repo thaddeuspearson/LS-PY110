@@ -38,15 +38,14 @@ from fibonacci_memoization import fibonacci
 
 def find_fibonacci_index_by_length(length: int) -> int:
     """
-    Finds the fibononacci index of the first fibonacci number that has the
-    given length. Note: Fibonacci indexes start at 1."""
+    Finds the fibononacci index of the first fibonacci number that
+    has the given length. Note: Fibonacci indexes start at 1.
+    """
     sys.set_int_max_str_digits(50_000)
-    idx, curr = 1, 1
+    idx = 1
 
-    while True:
-        if len(str(fibonacci(curr))) == length:
-            break
-        idx, curr = idx+1, curr+1
+    while len(str(fibonacci(idx))) != length:
+        idx += 1
     return idx
 
 
@@ -58,17 +57,15 @@ On line 39, the find_fibonacci_index_by_length function is defined with 1
 parameter, length, which expects an int.
 
 Line 43 sets the max str digits to 50000.
-On line 44, idx, and curr, both local variables, are created and set to 1 each.
+On line 45, idx, a local variable, is created and set to 1.
 
-Line 46 defins a while loop that will run indefinately.
+Line 47 defines a while loop that will run until the result of calling
+fibonacci on the current number's len (when coerced as a string) is equal to
+the input length.
 
-On line 47, an if conditional check is used to break the while loop when the
-result of calling fibonacci on the current number's len (when coerced as a
-string) is equal to the input length.
+On line 48, idx is incremented by 1.
 
-On line 49, both idx and curr are incremented by 1.
-
-On line 50, after the while loop has finished executing, idx is returned.
+On line 59, after the while loop has finished executing, idx is returned.
 
 User Level
 

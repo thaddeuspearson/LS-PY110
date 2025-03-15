@@ -32,16 +32,28 @@ A
 C
 """
 import sys
-from datetime import datetime
+from datetime import datetime as dt
+
+
+def has_friday_13(month: int, year: int) -> bool:
+    """Returns if the given month and year has friday the 13th"""
+    return dt(year, month, 13).strftime('%A') == "Friday"
 
 
 def friday_the_13ths(year: int) -> int:
     """Returns the number of friday-the-13ths in the given year"""
     friday_13_months = [
-        month for month in range(1, 13)
-        if datetime(year, month, 13).strftime('%A') == "Friday"
+        month for month in range(1, 13) if has_friday_13(month, year)
     ]
     return len(friday_13_months)
+
+# def friday_the_13ths(year: int) -> int:
+#     """Returns the number of friday-the-13ths in the given year"""
+#     friday_13_months = [
+#         month for month in range(1, 13)
+#         if dt(year, month, 13).strftime('%A') == "Friday"
+#     ]
+#     return len(friday_13_months)
 
 
 # pylint: disable=pointless-string-statement

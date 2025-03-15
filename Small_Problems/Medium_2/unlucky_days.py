@@ -47,14 +47,6 @@ def friday_the_13ths(year: int) -> int:
     ]
     return len(friday_13_months)
 
-# def friday_the_13ths(year: int) -> int:
-#     """Returns the number of friday-the-13ths in the given year"""
-#     friday_13_months = [
-#         month for month in range(1, 13)
-#         if dt(year, month, 13).strftime('%A') == "Friday"
-#     ]
-#     return len(friday_13_months)
-
 
 # pylint: disable=pointless-string-statement
 """CODE EXPLANATION

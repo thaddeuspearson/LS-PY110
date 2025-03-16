@@ -80,8 +80,8 @@ if __name__ == "__main__":
             [3, 9, 6],
         ]
         new_3_by_3_matrix = [
-            [1, 4, 3], 
-            [5, 7, 9], 
+            [1, 4, 3],
+            [5, 7, 9],
             [8, 2, 6]
         ]
         assert transpose(test_3_by_3_matrix) == new_3_by_3_matrix
@@ -105,6 +105,3 @@ if __name__ == "__main__":
         assert transpose([[1, 2, 3, 4]]) == [[1], [2], [3], [4]]
         assert transpose([[1], [2], [3], [4]]) == [[1, 2, 3, 4]]
         assert transpose([[1]]) == [[1]]
-        
-        
-        

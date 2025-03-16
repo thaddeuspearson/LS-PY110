@@ -74,11 +74,37 @@ column tuple to a list, and returns the transposed matrix.
 if __name__ == "__main__":
     args = sys.argv[1:]
     if args and args[0] == "test":
-        test_matrix = [
+        test_3_by_3_matrix = [
             [1, 5, 8],
             [4, 7, 2],
             [3, 9, 6],
         ]
-        new_matrix = transpose(test_matrix)
-        assert new_matrix == [[1, 4, 3], [5, 7, 9], [8, 2, 6]], new_matrix
-        assert test_matrix == [[1, 5, 8], [4, 7, 2], [3, 9, 6]], test_matrix
+        new_3_by_3_matrix = [
+            [1, 4, 3], 
+            [5, 7, 9], 
+            [8, 2, 6]
+        ]
+        assert transpose(test_3_by_3_matrix) == new_3_by_3_matrix
+        assert test_3_by_3_matrix == test_3_by_3_matrix
+
+        test_3_by_5_matrix = [
+            [1, 2, 3, 4, 5],
+            [4, 3, 2, 1, 0],
+            [3, 7, 8, 6, 2],
+        ]
+        new_3_by_5_matrix = [
+            [1, 4, 3],
+            [2, 3, 7],
+            [3, 2, 8],
+            [4, 1, 6],
+            [5, 0, 2],
+        ]
+        assert transpose(test_3_by_5_matrix) == new_3_by_5_matrix
+        assert test_3_by_5_matrix == test_3_by_5_matrix
+
+        assert transpose([[1, 2, 3, 4]]) == [[1], [2], [3], [4]]
+        assert transpose([[1], [2], [3], [4]]) == [[1, 2, 3, 4]]
+        assert transpose([[1]]) == [[1]]
+        
+        
+        

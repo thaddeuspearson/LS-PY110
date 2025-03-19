@@ -74,4 +74,4 @@ if __name__ == "__main__":
     assert closest_numbers([5, 25, 15, 11, 20]) == (15, 11)
     assert closest_numbers([19, 25, 32, 4, 27, 16]) == (25, 27)
     assert closest_numbers([12, 22, 7, 17]) == (12, 7)
-    assert closest_numbers([1, 2, 3, 2, 3, 1]) == (2, 2), closest_numbers([1, 2, 3, 2, 3, 1])
+    assert closest_numbers([1, 2, 3, 2, 3, 1]) == (2, 2)

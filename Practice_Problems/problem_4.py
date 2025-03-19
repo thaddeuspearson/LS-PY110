@@ -56,10 +56,10 @@ def closest_numbers(input_lst: list) -> list:
 
     for i in range(len(input_lst) - 1):
         for j in range(i+1, len(input_lst)):
-            pair_val_1 = input_lst[i]
-            pair_val_2 = input_lst[j]
-            curr_pair = pair_val_1, pair_val_2
-            curr_diff = abs(pair_val_1 - pair_val_2)
+            num_1 = input_lst[i]
+            num_2 = input_lst[j]
+            curr_pair = num_1, num_2
+            curr_diff = abs(num_1 - num_2)
 
             if curr_diff < closest_diff or \
                curr_diff == closest_diff and j < closest_pair_second_idx:

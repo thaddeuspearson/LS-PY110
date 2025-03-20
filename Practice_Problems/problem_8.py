@@ -22,7 +22,7 @@ D
 
 A
     - create a constant `VOWELS`, a set of lowercase vowels
-    - create an empty vowels_and_stars string 
+    - create an empty vowels_and_stars string
     - iterate through the input_str
         - if the curr_char is a vowel, append it to `vowels_and_stars`
         - if not, append a `*`

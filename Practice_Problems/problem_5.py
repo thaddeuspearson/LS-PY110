@@ -53,7 +53,7 @@ def most_common_char(input_str: str) -> str:
             char_counts[char] = char_counts.get(char, 0) + 1
 
     most_common = max(
-        char_counts, key=lambda k: (char_counts[k], -input_str.index(k))
+        char_counts, key=lambda k: (char_counts[k])
     )
 
     return most_common

@@ -47,7 +47,7 @@ C
 
 
 def is_prime(num: int) -> bool:
-    """returns is a number is prime or not"""
+    """Returns if a number is prime or not"""
     i = 2
 
     while i * i <= num:
